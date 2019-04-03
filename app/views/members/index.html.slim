@@ -1,0 +1,19 @@
+.level
+  .level-left
+    .level-item
+      h2.title.is-2 Members
+    .level-item
+      = link_to 'Add new', new_member_path, class: 'button is-primary'
+
+table.table
+  thead
+    tr
+      th Name
+      th URL
+      th Short URL
+  tbody
+    - @members.each do |m|
+      tr
+        td= link_to m.name, m
+        td= m.url
+        td= link_to m.short_url, target: '_blank'

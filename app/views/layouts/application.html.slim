@@ -1,0 +1,18 @@
+doctype html
+html
+  head
+    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
+    title Friends
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  body
+    header.container
+      = link_to root_path do
+        h1.title.is-4 uTrack Ruby Challenge
+        h2.subtitle.is-1 Friends
+    hr
+      .container
+        .notification Top menu here
+        = yield

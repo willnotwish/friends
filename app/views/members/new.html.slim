@@ -1,0 +1,25 @@
+h2.title.is-2 Add new member
+
+= form_for @member do |f|
+  - if @member.errors.any?
+    .notification
+      h4.title.is-4 = "#{pluralize(@member.errors.count, "error")} prohibited this member from being added:"
+      ul
+        - @member.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    label.label
+      |Name
+      .control
+        = f.text_field :name, class: 'input'
+  .field
+    label.label
+      |URL
+      .control
+        = f.text_field :url, class: 'input'
+  .field.is-grouped
+    .control
+      = f.submit "Add member", class: 'button is-primary'
+    .control
+      = link_to 'Cancel', :members, class: 'button is-cancel'
