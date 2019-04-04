@@ -9,10 +9,6 @@ html
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   body
     header.main-header
-      = link_to root_path do
-        .navbar.is-primary
-          .navbar-brand
-            .navbar-item
-              h1.title.is-4 <em>uTrack Ruby Challenge &ndash; Friends</em>
+      = render partial: 'header'
     .container
       = yield
