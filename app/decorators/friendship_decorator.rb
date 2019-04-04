@@ -5,11 +5,8 @@ class FriendshipDecorator
 
   delegate :content_tag, :link_to, to: :view_context
 
-  cattr_accessor(:logger) { Rails.logger }
-
   def shortest_path
     path = BreadthFirstSearch.new( source ).shortest_path_to( target )
-    logger.debug "Shortest path: #{path}"
     return '-' unless path
     content_tag( :nav, nil, class: 'breadcrumb' ) do
       content_tag( :ul, nil ) do
@@ -20,6 +17,7 @@ class FriendshipDecorator
     end
   end
 
+  # This from https://github.com/brianstorti/ruby-graph-algorithms
   # Search algorithm. This could be somewhere else... (in an external library perhaps)
 
   # Put unvisited nodes on a queue
