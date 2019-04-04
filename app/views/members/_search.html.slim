@@ -1,0 +1,8 @@
+- # Can be in context of a member, in which case @member is defined
+
+= form_for @search, url: @member || :members, method: :get do |f|
+  .field.has-addons
+    .control
+      = f.text_field :criteria, class: 'input is-info'
+    .control
+      = f.submit "Search", class: 'button is-info'

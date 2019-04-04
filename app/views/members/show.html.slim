@@ -3,19 +3,26 @@
   - if text.present?
     .notification.is-success= text
 
-h2.title.is-2 Member profile
-
 .content = link_to '<-- back to member list', :members
+
+.level
+  .level-left
+    .level-item
+      h2.title.is-2 Member profile
+  .level-right
+    .level-item
+      = render partial: 'search'
+
+- if @search.criteria.present?
+  = render partial: 'potential_friends'
+  hr
 
 .title.is-3= @member.name
 .subtitle= link_to nil, @member.url, {target: '_blank'}
-.content #{@member.friends.count} friends
+.content( title=@member.friends.map(&:name).join(', ')) #{@member.friends.count} #{"friend".pluralize(@member.friends.count)}
 
 - if @member.short_url.present?
   .content Short URL <em>#{@member.short_url}</em>
-
-
-hr
 
 h4.title.is-4 Headings
 - @member.headings.tap do |headings|

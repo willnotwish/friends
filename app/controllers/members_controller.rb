@@ -1,13 +1,21 @@
 class MembersController < ApplicationController
 
+  before_action :build_search, only: [:index, :show]
+
   def index
-    @search = MemberSearch.new member_search_params
-    @members = @search.filter Member.all.order( :name ).includes( :headings )
+    @members = @search.filter( Member.all )
+      .order(:name)
+      .includes(:headings)
     respond_with @members
   end
 
   def show
     @member = Member.find params[:id]
+    if @search.criteria.present?
+      @potential_friends = @search.filter( Member.where.not(id: @member.id) )
+        .order(:name)
+        .includes(:headings)
+    end
     respond_with @member
   end
 
@@ -29,6 +37,10 @@ class MembersController < ApplicationController
   end
 
 private
+
+  def build_search
+    @search = MemberSearch.new member_search_params
+  end
 
   def member_params
     params.fetch( :member, {} ).permit( :name, :url )

@@ -6,7 +6,7 @@
       = link_to 'Add new', new_member_path, class: 'button is-primary'
   .level-right
     .level-item
-      = render partial: 'index_search', object: @search, as: :search
+      = render partial: 'search'
 
 - if @members.empty?
   - if @search.criteria.present?
