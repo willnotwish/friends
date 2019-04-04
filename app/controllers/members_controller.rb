@@ -16,7 +16,11 @@ class MembersController < ApplicationController
   end
 
   def create
-    @member = Member.create member_params
+    @member = Member.new member_params
+    if @member.save
+      ScrapeHeadingsJob.perform_later @member
+      ShortenUrlJob.perform_later @member
+    end
     respond_with @member
   end
 

@@ -3,4 +3,5 @@ class Heading < ApplicationRecord
   # t.string "text"
 
   belongs_to :member
+  validates :level, :text, presence: true
 end

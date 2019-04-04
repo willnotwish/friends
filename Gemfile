@@ -69,7 +69,9 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem 'simple_form'
+# Added by Nick
+gem 'simple_form' # not used now I think - could be removed maybe
 gem 'slim-rails'
-gem 'responders'
-gem 'bulma-rails', '~> 0.7.4'
+gem 'responders' # lets me use respond_with in controllers
+gem 'bulma-rails', '~> 0.7.4' # a modern alternative to bootstrap
+gem 'httparty' # I picked this over rest-client because I've used it before and it's still being worked on

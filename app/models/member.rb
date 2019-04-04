@@ -1,5 +1,4 @@
 class Member < ApplicationRecord
-
   # t.string "name"
   # t.string "url"
   # t.string "short_url"
@@ -13,7 +12,7 @@ class Member < ApplicationRecord
   validates :url, presence: true, uniqueness: { case_sensitive: false }
   validates :short_url, uniqueness: { case_sensitive: false, allow_blank: true }
 
-  # Consider implementng this in a decorator class
+  # Consider moving this in a decorator class
   def shortest_path_to( another )
     logger.debug "shortest_path_to #{another.name} from #{self.name} using BFS"
     BreadthFirstSearch.new( self ).shortest_path_to( another )

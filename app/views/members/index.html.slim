@@ -16,4 +16,4 @@ table.table
       tr
         td= link_to m.name, m
         td= m.url
-        td= link_to m.short_url, target: '_blank'
+        td= link_to( m.short_url, m.short_url, target: '_blank' ) if m.short_url.present?

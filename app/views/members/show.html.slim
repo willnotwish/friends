@@ -6,8 +6,12 @@
 h2.title.is-2 Member profile
 
 .title.is-3= @member.name
-.subtitle= link_to nil, @member.url, { target: '_blank'}
+.subtitle= link_to nil, @member.url, {target: '_blank'}
 .content #{@member.friends.count} friends
+
+- if @member.short_url.present?
+  .content Short URL <em>#{@member.short_url}</em>
+
 
 hr
 
