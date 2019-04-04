@@ -10,11 +10,13 @@ class FriendshipDecorator
   def shortest_path
     path = BreadthFirstSearch.new( source ).shortest_path_to( target )
     logger.debug "Shortest path: #{path}"
-    return unless path
-    content_tag( :ul, nil, class: 'breadcrumb' ) do
-      path.map do |m|
-        content_tag :li, link_to( m.name, m )
-      end.join( ' ' ).html_safe
+    return '-' unless path
+    content_tag( :nav, nil, class: 'breadcrumb' ) do
+      content_tag( :ul, nil ) do
+        path.map do |m|
+          content_tag :li, link_to( m.name, m )
+        end.join( ' ' ).html_safe
+      end
     end
   end
 

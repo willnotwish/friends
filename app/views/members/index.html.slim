@@ -20,11 +20,9 @@
         th Name
         th URL
         th Short URL
-        th Headings
     tbody
       - @members.each do |m|
         tr
           td= link_to m.name, m
           td= m.url
           td= m.short_url
-          td= m.headings.map(&:text).join(', ')

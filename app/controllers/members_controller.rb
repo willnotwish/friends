@@ -12,7 +12,7 @@ class MembersController < ApplicationController
   def show
     @member = Member.find params[:id]
     if @search.criteria.present?
-      @potential_friends = @search.filter( Member.where.not(id: @member.id) )
+      @potential_friends = @search.filter( Member.potential_friends_of( @member ) )
         .order(:name)
         .includes(:headings)
     end

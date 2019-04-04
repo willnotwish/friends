@@ -8,13 +8,11 @@ html
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   body
-    header.container
+    header.main-header
       = link_to root_path do
-        .level
-          .level-left
-            .level-item
-              h1.title.is-4 uTrack Ruby Challenge &ndash; Friends
-    hr
-      .container
-        / .notification Top menu here
-        = yield
+        .navbar.is-primary
+          .navbar-brand
+            .navbar-item
+              h1.title.is-4 <em>uTrack Ruby Challenge &ndash; Friends</em>
+    .container
+      = yield
