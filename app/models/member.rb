@@ -12,6 +12,13 @@ class Member < ApplicationRecord
   validates :url, presence: true, uniqueness: { case_sensitive: false }
   validates :short_url, uniqueness: { case_sensitive: false, allow_blank: true }
 
+  class << self
+    def with_heading_containing( text )
+      logger.debug "with_heading_containing: #{text}"
+      joins( :headings ).merge Heading.contains( text )
+    end
+  end
+
   # Consider moving this in a decorator class
   def shortest_path_to( another )
     logger.debug "shortest_path_to #{another.name} from #{self.name} using BFS"

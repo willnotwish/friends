@@ -10,9 +10,11 @@ html
   body
     header.container
       = link_to root_path do
-        h1.title.is-4 uTrack Ruby Challenge
-        h2.subtitle.is-1 Friends
+        .level
+          .level-left
+            .level-item
+              h1.title.is-4 uTrack Ruby Challenge &ndash; Friends
     hr
       .container
-        .notification Top menu here
+        / .notification Top menu here
         = yield

@@ -4,16 +4,27 @@
       h2.title.is-2 Members
     .level-item
       = link_to 'Add new', new_member_path, class: 'button is-primary'
+  .level-right
+    .level-item
+      = render partial: 'index_search', object: @search, as: :search
 
-table.table
-  thead
-    tr
-      th Name
-      th URL
-      th Short URL
-  tbody
-    - @members.each do |m|
+- if @members.empty?
+  - if @search.criteria.present?
+    .notification Sorry, but no members were found. Try another search.
+  - else
+    .notification There are no members in the system yet. #{link_to 'Add one now', new_member_path}
+- else
+  table.table
+    thead
       tr
-        td= link_to m.name, m
-        td= m.url
-        td= link_to( m.short_url, m.short_url, target: '_blank' ) if m.short_url.present?
+        th Name
+        th URL
+        th Short URL
+        th Headings
+    tbody
+      - @members.each do |m|
+        tr
+          td= link_to m.name, m
+          td= m.url
+          td= m.short_url
+          td= m.headings.map(&:text).join(', ')

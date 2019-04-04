@@ -1,7 +1,8 @@
 class MembersController < ApplicationController
 
   def index
-    @members = Member.all.order( :name )
+    @search = MemberSearch.new member_search_params
+    @members = @search.filter Member.all.order( :name ).includes( :headings )
     respond_with @members
   end
 
@@ -18,6 +19,9 @@ class MembersController < ApplicationController
   def create
     @member = Member.new member_params
     if @member.save
+      # I considered adding these as on_create hooks in the Member model.
+      # Really, they should be in a separate operation-style class.
+      # But for now, that's overkill, so I've added them here.
       ScrapeHeadingsJob.perform_later @member
       ShortenUrlJob.perform_later @member
     end
@@ -28,5 +32,9 @@ private
 
   def member_params
     params.fetch( :member, {} ).permit( :name, :url )
+  end
+
+  def member_search_params
+    params.fetch( :member_search, {} ).permit( :criteria )
   end
 end

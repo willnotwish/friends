@@ -5,6 +5,8 @@
 
 h2.title.is-2 Member profile
 
+.content = link_to '<-- back to member list', :members
+
 .title.is-3= @member.name
 .subtitle= link_to nil, @member.url, {target: '_blank'}
 .content #{@member.friends.count} friends
