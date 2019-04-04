@@ -3,6 +3,6 @@
 = form_for @search, url: @member || :members, method: :get do |f|
   .field.has-addons
     .control
-      = f.text_field :criteria, class: 'input is-info'
+      = f.text_field :criteria, class: 'input is-primary'
     .control
-      = f.submit "Search", class: 'button is-info'
+      = f.submit "Search", class: 'button is-primary'

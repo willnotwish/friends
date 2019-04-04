@@ -19,10 +19,11 @@
 
 .title.is-3= @member.name
 .subtitle= link_to nil, @member.url, {target: '_blank'}
+- if @member.short_url.present?
+  .content Short URL: <strong>#{@member.short_url}</strong>
+
 .content( title=@member.friends.map(&:name).join(', ')) #{@member.friends.count} #{"friend".pluralize(@member.friends.count)}
 
-- if @member.short_url.present?
-  .content Short URL <em>#{@member.short_url}</em>
 
 h4.title.is-4 Headings
 - @member.headings.tap do |headings|
