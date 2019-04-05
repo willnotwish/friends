@@ -1,0 +1,29 @@
+answers.txt
+
+1. What is the GIL?
+
+At a high level, you can imagine the GIL ("global interpreter lock") as a kind of gatekeeper to a system or store containing shared resources. The GIL allows only one "worker" entry to the system at one time.
+
+Without such a gatekeeper, access to resources in the store requires cooperation between workers. Mistakes could be made if, for example, two workers try to modify the same resource simultaneously. Arguments may break out!
+
+The GIL is a high level way of managing shared access. If only one worker is allowed into the system at a time, then the chances of two or more simultaneously trying to modify the same resource is zero.
+
+In programming terms, the GIL makes it easier for software developers to write code, because they do not have to worry about the rug being pulled from under them. While their code is running it has exclusive access to shared resources.
+
+A disadvantage of the GIL is that if a worker gets stuck and takes a long time to perform a task, other workers are blocked from their work, waiting at the gate to be let in. For this reason, the worker should always try to get his own job done as quickly as possible -- not worrying about others -- and get out of there as soon as he can.
+
+
+Cost implications when scaling a production application
+
+In general, use of the GIL means that multithreaded operation is not possible. The benefits of using a multi core processor are largely defeated. One way to scale is to use more processes, each with their own Rails stack and hence their own GIL.
+
+Having said that, I note that in the current version of Rails there is limited support for concurrent operation, which may open the way for multithreaded operation using JRuby or Rubinius, which do not use a GIL.
+
+See https://guides.rubyonrails.org/threading_and_code_execution.html
+
+I would suggest that scaling has to be a really big problem before multithreading is considered as a potential solution.
+
+
+2. Why using a background service can help when accessing external APIs
+
+In the discussion above, it was stated that the worker should do his or her job as quickly as possible and get out. Sometimes the wroker depends on a third party to perform some service or other (eg, return some data via an external API). The last thing system needs is for a worker to be hanging around doing nothing (stopping anyone else from entering via the GIL) while waiting on a third party. For this reason it is convenient to move this third party interaction to a separate background process which can be performed later, freeing up the worker to finish his task as soon as possible without hanging around.
