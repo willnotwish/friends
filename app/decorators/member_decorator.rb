@@ -1,21 +1,16 @@
 # This serves as an example of a member decorator.
 
 # In a production application it would be more comprehensive,
-# maybe split into a base class and modules.
+# maybe split into modules.
 
 require 'shortest_friendship_path'
 
-class MemberDecorator
-  include ActiveModel::Model
+class MemberDecorator < ApplicationDecorator
 
-  attr_accessor :member, :view_context
-
-  delegate :content_tag, :link_to, to: :view_context
-
-  delegate :name, :url, :short_url, :headings, to: :member
+  delegate :id, :name, :url, :short_url, :headings, :friends, to: :object
 
   def shortest_path_to( other )
-    path = ShortestFriendshipPath.calculate member, other
+    path = ShortestFriendshipPath.calculate object, other
     return '-' unless path
     content_tag( :nav ) do
       content_tag( :ul, nil ) do
@@ -31,24 +26,29 @@ class MemberDecorator
   end
 
   def has_headings?
-    headings.present?
+    headings.any?
   end
 
   def headings_as_ul
     content_tag( :ul, nil ) do
       headings.map do |h|
         content_tag :li, h.text
-      end
+      end.join( ' ' ).html_safe
     end
   end
 
+  def headings_as_text
+    headings.map(&:text).join(', ')
+  end
+
   def has_friends?
-    friends.present?
+    friends.any?
   end
 
   def friend_count
     friends.count
   end
+  alias_method :friends_count, :friend_count
 
   def friends_as_text
     friends.map(&:name).join(', ')

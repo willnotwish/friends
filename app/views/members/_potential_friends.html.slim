@@ -7,10 +7,11 @@
       tr
         th Name
         th Headings
-        th Path
+        th Shortest path
     tbody
       - potential_friends.each do |m|
-        tr
-          td= link_to m.name, m
-          td= m.headings.map(&:text).join(', ')
-          td= member.shortest_path_to( m )
+        - decorate m do |dm|
+          tr
+            td= link_to dm.name, dm
+            td= dm.headings_as_text
+            td= member.shortest_path_to( m )

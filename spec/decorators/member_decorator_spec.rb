@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe MemberDecorator do
   include ActionView::TestCase::Behavior
 
-  it {is_expected.to respond_to(:member)}
-  it {is_expected.to respond_to(:member=)}
+  it {is_expected.to respond_to(:object)}
+  it {is_expected.to respond_to(:object=)}
 
   it {is_expected.to respond_to(:view_context)}
   it {is_expected.to respond_to(:view_context=)}
@@ -20,11 +20,11 @@ RSpec.describe MemberDecorator do
     let( :view_context ) { view }
 
     before do
+      subject.object = alice
       subject.view_context = view_context
     end
 
     it 'the shortest path from Alice to Bob is represented as a single dash' do
-      subject.member = alice
       expect(subject.shortest_path_to(bob)).to eq('-')
     end
 
@@ -34,7 +34,6 @@ RSpec.describe MemberDecorator do
       end
 
       it 'the shortest path from Alice to Bob is represented as a single dash' do
-        subject.member = alice
         expect(subject.shortest_path_to(bob)).to eq('-')
       end
 
@@ -44,10 +43,6 @@ RSpec.describe MemberDecorator do
         end
 
         context "Alice's shortest path to Bob"  do
-          before do
-            subject.member = alice
-          end
-
           let( :path ) { subject.shortest_path_to(bob)}
 
           it 'contains one ul tag' do

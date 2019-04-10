@@ -1,4 +1,4 @@
-- decorate_member @member do |member|
+- decorate @member do |member|
 
   - notice.tap do |text|
     - if text.present?
@@ -15,7 +15,7 @@
         = render partial: 'search'
 
   - if @search.criteria.present?
-    = render partial: 'potential_friends', locals: { member: member }
+    = render partial: 'potential_friends', locals: { member: member, potential_friends: @potential_friends }
     hr
 
   .title.is-3= member.name
@@ -27,7 +27,7 @@
 
 
   h4.title.is-4 Headings
-  - if member.has_headings?
+  - if !member.has_headings?
     .notification.is-warning No headings yet. Maybe they are being fetched right now... refresh the page to see.
   - else
     = member.headings_as_ul
