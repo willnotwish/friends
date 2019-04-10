@@ -12,7 +12,7 @@ class MemberDecorator < ApplicationDecorator
   def shortest_path_to( other )
     path = ShortestFriendshipPath.calculate object, other
     return '-' unless path
-    content_tag( :nav ) do
+    content_tag( :nav, nil, class: 'breadcrumb' ) do
       content_tag( :ul, nil ) do
         path.map do |m|
           content_tag :li, link_to( m.name, m )
