@@ -1,4 +1,4 @@
-- if @potential_friends.empty?
+- if potential_friends.empty?
   .notification.is-warning We couldn't find any potential friends matching your search criteria. Please try again
 - else
   h5.title.is-5 Friend suggestions
@@ -9,8 +9,8 @@
         th Headings
         th Path
     tbody
-      - @potential_friends.each do |m|
+      - potential_friends.each do |m|
         tr
           td= link_to m.name, m
           td= m.headings.map(&:text).join(', ')
-          td= FriendshipDecorator.new(source: @member, target: m, view_context: self).shortest_path
+          td= member.shortest_path_to( m )

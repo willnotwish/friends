@@ -1,20 +1,8 @@
-class FriendshipDecorator
-  include ActiveModel::Model
+class ShortestFriendshipPath
 
-  attr_accessor :source, :target, :view_context
-
-  delegate :content_tag, :link_to, to: :view_context
-
-  def shortest_path
-    path = BreadthFirstSearch.new( source ).shortest_path_to( target )
-    return '-' unless path
-    content_tag( :nav, nil, class: 'breadcrumb' ) do
-      content_tag( :ul, nil ) do
-        path.map do |m|
-          content_tag :li, link_to( m.name, m )
-        end.join( ' ' ).html_safe
-      end
-    end
+  # public interface
+  def self.calculate(from, to)
+    BreadthFirstSearch.new(from).shortest_path_to(to)
   end
 
   # This from https://github.com/brianstorti/ruby-graph-algorithms

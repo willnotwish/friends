@@ -23,8 +23,9 @@
         th Headings
     tbody
       - @members.each do |m|
-        tr
-          td= link_to m.name, m
-          td= m.url
-          td= m.short_url
-          td= m.headings.map(&:text).join(', ')
+        - decorate( m ) do |member|
+          tr
+            td= link_to member.name, member
+            td= member.url
+            td= member.short_url
+            td= member.headings_as_text
