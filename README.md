@@ -16,7 +16,7 @@ You can never have enough tests. If this were a production application I'd defin
 ## Separating concerns a little more
 I moved the shortest path calculation (aka breadth first search) to a separate class in the /lib folder, away from the previous FriendshipDecorator, which I have removed. Doing this makes the shortest path calculation easier to test. This functionality may be also useful in other projects, which is why I decoupled it.
 
-I added MemberDecorator. I believe decorators are more appropriate than global view helpers, which always get messy at some point. Decorators can get essy too, but at least you are not polluting the global namespace.
+I added MemberDecorator. I believe decorators are more appropriate than global view helpers, which always get messy at some point. Decorators can get messy too, but at least you are not polluting the global namespace.
 
 I added a controller spec. Normally I am a bit skeptical about controller tests. I believe they are soft deprecated these days, and request specs are favoured instead. I don't know enough about integration testing -- I would like to improve my knowledge in this area.
 
